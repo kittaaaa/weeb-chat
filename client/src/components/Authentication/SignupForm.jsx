@@ -55,9 +55,12 @@ const SignupForm = ({ setAuth }) => {
         navigate("/", { replace: true });
         console.log(formik.values);
       }, 2000);
+      console.log("just before " +formik.values);
     },
+    handleSubmit: () => {
+      alert(formik.values);
+    }
   });
-
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps, values } = formik;
 
   return (
