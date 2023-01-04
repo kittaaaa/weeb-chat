@@ -55,6 +55,7 @@ const LoginForm = ({ setAuth }) => {
         console.log("submited!!");
         setAuth(true);
         navigate(from, { replace: true });
+      
       }, 2000);
     },
   });
