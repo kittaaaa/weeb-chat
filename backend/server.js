@@ -36,5 +36,4 @@ app.get('/', (req, res) => {
 })
 app.use('/api/user',userRoutes);
 
-app.use('/api/user/login', authUser);
 app.listen(port, console.log(`Server is running on port: ${port}`));

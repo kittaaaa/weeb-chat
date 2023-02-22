@@ -6,13 +6,9 @@ const generateToken = require("../config/generateToken");
 
 const registerUser = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
-
-    if(!username || !email || !password) {
-        res.status(400);
-        throw new Error("Please Enter all the Feilds");
-    }
     console.log(req.body);
 
+    // checks for email exist in database
     const userExists = await User.findOne({email});
 
     console.log('i am lol');
@@ -37,25 +33,27 @@ const registerUser = asyncHandler(async (req, res) => {
     }else {
         res.status(400);
         throw new Error("Don't know what to throw");
-    }
+}
 });
 // for login 
 const authUser = asyncHandler(async(req, res) => {
     const { email, password} = req.body;
-
+    console.log(req.body);
     const user = await User.findOne({email});
-    // if(user && (await User.matchPassword(password))){
-    //     res.json({
-    //         //details
-    //         _id:user._id,
-    //         username: user.username,
-    //         email: user.email,
-    //         token: generateToken(user._id)
-    //     });
-    // }else {
-    //     res.status(401);
-    //     throw new Error("Invalid Email or Password");
-    // }
+    
+    if(user && (await user.matchPassword(password))){
+        console.log('loggedin');
+        res.json({
+            //details
+            _id:user._id,
+            username: user.username,
+            email: user.email,
+            token: generateToken(user._id)
+        });
+    }else {
+        res.status(401);
+        throw new Error("Invalid Email or Password");
+    }
     console.log('yay you are in lol');
 });
 module.exports = { registerUser, authUser };
