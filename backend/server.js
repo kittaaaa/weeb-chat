@@ -1,7 +1,13 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+
+//importing routes
 const userRoutes = require('./routes/userRoutes');
+const chatRoutes = require('./routes/chatRoutes');
+
+
+const User = require('./models/user.model');
 // const { registerUser } = require("./controller/userController");
 const cors = require('cors');
 const { authUser } = require("./controller/userController");
@@ -35,5 +41,13 @@ app.get('/', (req, res) => {
     res.send('You got it right');
 })
 app.use('/api/user',userRoutes);
+app.use('/api/chat', chatRoutes);
+
+// app.get('/profile', async (req, res) => {
+//     const data = await User.find({});
+//     console.log(data);
+
+
+// })
 
 app.listen(port, console.log(`Server is running on port: ${port}`));
